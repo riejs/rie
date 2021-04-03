@@ -1,0 +1,26 @@
+{
+	"name": "@riejs/rie",
+	"version": "1.0.0",
+	"description": "The core of rie.",
+	"main": "lib/index.js",
+	"browser": "lib/client.js",
+	"types": "lib/index.d.ts",
+	"scripts": {
+		"build": "tsc"
+	},
+	"files": [
+		"lib"
+	],
+	"keywords": [
+		"rie"
+	],
+	"author": "incca",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/koa": "^2.11.4",
+		"axios": "^0.21.1"
+	},
+	"peerDependencies": {
+		"axios": "^0.21.1"
+	}
+}

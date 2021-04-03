@@ -1,0 +1,13 @@
+{
+  "parser":  "@typescript-eslint/parser",
+  "extends": ["tencent", "tencent/ts"],
+  "plugins": ["@typescript-eslint"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "no-undef": "off"
+  },
+  "ignorePatterns": ["packages/*/lib/**", "packages/*/tmp/**", "**/dist/**", "node_modules"]
+}

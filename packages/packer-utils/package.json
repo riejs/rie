@@ -1,0 +1,29 @@
+{
+	"name": "@riejs/packer-utils",
+	"version": "1.0.0",
+	"description": "The utils for rie packer.",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"scripts": {
+		"build": "tsc"
+	},
+	"files": [
+		"lib"
+	],
+	"keywords": [
+		"packer",
+		"utlis",
+		"rie"
+	],
+	"author": "incca",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/koa": "^2.11.4"
+	},
+	"dependencies": {
+		"@babel/generator": "^7.13.0",
+		"@babel/parser": "^7.13.4",
+		"@babel/types": "^7.13.0",
+		"loader-utils": "^2.0.0"
+	}
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@riejs/renderer-vue2",
+  "version": "1.0.0",
+  "description": "The vue2.0 renderer of rie.",
+  "main": "lib/server.js",
+  "browser": "lib/client.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "renderer",
+    "vue2",
+    "ssr",
+    "rie"
+  ],
+  "author": "incca",
+  "license": "MIT",
+  "devDependencies": {
+    "@riejs/packer-vue2": "^1.0.0",
+    "@riejs/rie": "^1.0.0",
+    "@types/koa": "^2.11.4"
+  },
+  "dependencies": {
+    "vue": "^2.6.12",
+    "vue-meta": "^2.4.0",
+    "vue-server-renderer": "^2.6.12"
+  }
+}

@@ -1,0 +1,22 @@
+{
+	"name": "@riejs/cli",
+	"version": "1.0.0",
+	"description": "The cli of rie.",
+	"main": "lib/rie.js",
+	"scripts": {
+		"build": "tsc"
+	},
+	"bin": {
+		"rie": "lib/rie.js"
+	},
+	"keywords": [
+		"rie",
+		"cli"
+	],
+	"author": "incca",
+	"license": "MIT",
+	"dependencies": {
+		"@riejs/rie": "^1.0.0",
+		"commander": "^6.1.0"
+	}
+}
