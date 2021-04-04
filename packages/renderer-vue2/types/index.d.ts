@@ -3,6 +3,7 @@
  */
 
 import Vue from 'vue';
+import 'vuex';
 import 'vue-meta';
 import { RendererInterface, RendererOption } from '@riejs/rie';
 

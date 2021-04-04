@@ -1,5 +1,5 @@
 import { createApp } from './app';
-import { getAsyncData } from './async-data';
+import { getAsyncData, getState } from './async-data';
 
 /* eslint-disable no-param-reassign */
 export default async (context) => {
@@ -7,5 +7,9 @@ export default async (context) => {
   const { app } = createApp(context, data);
   context.meta = app.$meta();
   context.asyncData = data;
+  const state = getState(context.app);
+  if (state) {
+    context.state = state;
+  }
   return app;
 };

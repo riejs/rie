@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { user } from "../services/user";
+import { user } from "../../services/user";
 import { Vue } from '@riejs/renderer-vue2';
 
 export default Vue.extend({

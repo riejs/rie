@@ -5,8 +5,8 @@ const initScript = isDev => `
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var app = window.rieApp.default || window.rieApp;
-      var isDev = ${isDev || false};
-      window.rieVue2Runtime.init(app, isDev);
+      window.rieVue2Runtime.Vue.config.devtools = ${isDev || false};
+      window.rieVue2Runtime.init(app);
     });
   </script>`;
 

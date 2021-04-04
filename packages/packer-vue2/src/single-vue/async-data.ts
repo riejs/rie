@@ -1,6 +1,12 @@
-export const getAsyncData = async function getAsyncData(app) {
+export async function getAsyncData(app) {
   // functional component
   const options = typeof app === 'function' ? app.options : app;
-  const { asyncData } = options;
+  const { asyncData } = options || {};
   return typeof asyncData === 'function' ? await asyncData() : {};
 };
+
+export function getState(app) {
+  const options = typeof app === 'function' ? app.options : app;
+  console.log(options?.store?.state);
+  return options?.store?.state || null;
+}
