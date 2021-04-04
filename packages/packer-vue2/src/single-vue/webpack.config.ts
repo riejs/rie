@@ -10,7 +10,7 @@ const name = 'rie.vue2.runtime';
 
 export const server: WebpackOptions = {
   entry: resolve(__dirname, './entry-server'),
-  mode: 'production',
+  mode: 'development',
   target: 'node',
   devtool: 'source-map',
   resolve: {

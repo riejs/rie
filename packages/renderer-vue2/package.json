@@ -24,6 +24,7 @@
   "dependencies": {
     "vue": "^2.6.12",
     "vue-meta": "^2.4.0",
-    "vue-server-renderer": "^2.6.12"
+    "vue-server-renderer": "^2.6.12",
+    "vuex": "^3.6.2"
   }
 }
