@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.0",
   "workspaces": [
     "packages/*"
   ],
@@ -56,5 +56,10 @@
       "packages/**/*.ts"
     ],
     "ext": "ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:riejs/rie.git",
+    "directory": "."
   }
 }

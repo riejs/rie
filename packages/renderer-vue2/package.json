@@ -1,6 +1,6 @@
 {
   "name": "@riejs/renderer-vue2",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "The vue2.0 renderer of rie.",
   "main": "lib/server.js",
   "browser": "lib/client.js",
@@ -26,5 +26,10 @@
     "vue-meta": "^2.4.0",
     "vue-server-renderer": "^2.6.12",
     "vuex": "^3.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:riejs/rie.git",
+    "directory": "packages/renderer-vue2"
   }
 }
