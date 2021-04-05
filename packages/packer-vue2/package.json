@@ -1,6 +1,6 @@
 {
   "name": "@riejs/packer-vue2",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "The vue2.0 packer of rie.",
   "main": "lib/index.js",
   "scripts": {
@@ -58,5 +58,10 @@
     "vue-class-component": "^7.2.6",
     "webpack-bundle-analyzer": "^4.4.0",
     "webpack-cli": "^4.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:riejs/rie.git",
+    "directory": "packages/packer-vue2"
   }
 }
