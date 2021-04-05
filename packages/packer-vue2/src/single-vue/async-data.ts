@@ -7,6 +7,5 @@ export async function getAsyncData(app) {
 
 export function getState(app) {
   const options = typeof app === 'function' ? app.options : app;
-  console.log(options?.store?.state);
   return options?.store?.state || null;
 }
