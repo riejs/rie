@@ -1,6 +1,6 @@
 {
   "name": "@riejs/packer-vue2",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "The vue2.0 packer of rie.",
   "main": "lib/index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.12.13",
     "@babel/plugin-transform-runtime": "^7.12.15",
     "@babel/preset-env": "^7.11.5",
-    "@riejs/packer-utils": "^1.0.0",
+    "@riejs/packer-utils": "workspace:packages/packer-utils",
     "babel-loader": "^8.1.0",
     "clone-deep": "^4.0.1",
     "core-js": "^3.6.5",
@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.12.16",
-    "@riejs/rie": "^1.0.0",
+    "@riejs/rie": "workspace:packages/core",
     "@types/gulp": "^4.0.8",
     "@types/koa": "^2.11.4",
     "gulp": "^4.0.2",

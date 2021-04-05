@@ -1,6 +1,6 @@
 {
   "name": "@riejs/renderer-vue2",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "The vue2.0 renderer of rie.",
   "main": "lib/server.js",
   "browser": "lib/client.js",
@@ -17,8 +17,8 @@
   "author": "incca",
   "license": "MIT",
   "devDependencies": {
-    "@riejs/packer-vue2": "^1.0.0",
-    "@riejs/rie": "^1.0.0",
+    "@riejs/packer-vue2": "workspace:packages/packer-vue2",
+    "@riejs/rie": "workspace:packages/core",
     "@types/koa": "^2.11.4"
   },
   "dependencies": {

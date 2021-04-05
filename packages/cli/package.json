@@ -1,6 +1,6 @@
 {
 	"name": "@riejs/cli",
-	"version": "1.0.0",
+	"version": "0.0.1",
 	"description": "The cli of rie.",
 	"main": "lib/rie.js",
 	"scripts": {
@@ -16,7 +16,7 @@
 	"author": "incca",
 	"license": "MIT",
 	"dependencies": {
-		"@riejs/rie": "^1.0.0",
+		"@riejs/rie": "workspace:packages/core",
 		"commander": "^6.1.0"
 	}
 }
