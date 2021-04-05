@@ -1566,14 +1566,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@riejs/cli@workspace:packages/cli"
   dependencies:
-    "@riejs/rie": ^1.0.0
+    "@riejs/rie": "workspace:packages/core"
     commander: ^6.1.0
   bin:
     rie: lib/rie.js
   languageName: unknown
   linkType: soft
 
-"@riejs/packer-utils@^1.0.0, @riejs/packer-utils@workspace:packages/packer-utils":
+"@riejs/packer-utils@workspace:packages/packer-utils":
   version: 0.0.0-use.local
   resolution: "@riejs/packer-utils@workspace:packages/packer-utils"
   dependencies:
@@ -1585,7 +1585,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@riejs/packer-vue2@^1.0.0, @riejs/packer-vue2@workspace:packages/packer-vue2":
+"@riejs/packer-vue2@workspace:packages/packer-vue2":
   version: 0.0.0-use.local
   resolution: "@riejs/packer-vue2@workspace:packages/packer-vue2"
   dependencies:
@@ -1596,8 +1596,8 @@ __metadata:
     "@babel/plugin-transform-runtime": ^7.12.15
     "@babel/preset-env": ^7.11.5
     "@babel/preset-typescript": ^7.12.16
-    "@riejs/packer-utils": ^1.0.0
-    "@riejs/rie": ^1.0.0
+    "@riejs/packer-utils": "workspace:packages/packer-utils"
+    "@riejs/rie": "workspace:packages/core"
     "@types/gulp": ^4.0.8
     "@types/koa": ^2.11.4
     babel-loader: ^8.1.0
@@ -1636,8 +1636,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@riejs/renderer-vue2@workspace:packages/renderer-vue2"
   dependencies:
-    "@riejs/packer-vue2": ^1.0.0
-    "@riejs/rie": ^1.0.0
+    "@riejs/packer-vue2": "workspace:packages/packer-vue2"
+    "@riejs/rie": "workspace:packages/core"
     "@types/koa": ^2.11.4
     vue: ^2.6.12
     vue-meta: ^2.4.0
@@ -1646,7 +1646,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@riejs/rie@^1.0.0, @riejs/rie@workspace:packages/core":
+"@riejs/rie@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@riejs/rie@workspace:packages/core"
   dependencies:
