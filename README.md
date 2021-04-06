@@ -50,10 +50,10 @@ export const config: RieOption = {
       Renderer: Vue2Renderer,
     },
   ],
+  // 构建产物目录
+  dist: '/path/to/dist',
   // 开发模式（可选，默认 false）
   dev: true,
-  // 构建产物目录（可选，默认 dist 目录)
-  dist: '/path/to/dist',
   // 构建产物的 publicPath（可选，默认 /dist）
   publicPath: '/dist',
   // SSR 失败回调
