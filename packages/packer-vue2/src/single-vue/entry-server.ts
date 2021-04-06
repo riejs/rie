@@ -1,5 +1,9 @@
+import Vue from 'vue';
+import Vuex from 'vuex';
 import { createApp } from './app';
 import { getAsyncData, getState } from './async-data';
+
+Vue.use(Vuex);
 
 /* eslint-disable no-param-reassign */
 export default async (context) => {

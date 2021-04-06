@@ -2,7 +2,6 @@ import { resolve } from 'path';
 import VueSSRServerPlugin from 'vue-server-renderer/server-plugin';
 import VueSSRClientPlugin from 'vue-server-renderer/client-plugin';
 import { WebpackOptions } from 'webpack/declarations/WebpackOptions';
-import nodeExternals from 'webpack-node-externals';
 import TerserPlugin from 'terser-webpack-plugin';
 
 const dist = resolve(__dirname, '../../lib/single-vue');
@@ -38,7 +37,15 @@ export const server: WebpackOptions = {
       filename: `server/${name}.server.json`,
     }),
   ],
-  externals: [nodeExternals()],
+  externals: [
+    function (context, request, callback) {
+      console.log(context, request);
+      if (/^(vue|vuex|vue-meta)$/.test(request)) {
+        return callback(null, `commonjs ${request}`);
+      }
+      callback();
+    },
+  ],
 };
 
 export const client: WebpackOptions = {
