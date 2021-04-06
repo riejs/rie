@@ -43,7 +43,6 @@ export const getConfig = function getConfig(base: WebpackOptions, option: GetCon
         root: ['rieVue2Runtime', 'Vue'],
       },
     },
-    optimization: { minimize: false },
   };
 
   config.module.rules.push(

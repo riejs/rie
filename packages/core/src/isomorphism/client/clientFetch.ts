@@ -149,7 +149,7 @@ export const clientFetch = function clientFetch(config: AxiosRequestConfig, opti
         const connector = reqConfig.url.indexOf('?') > 0 ? '&' : '?';
         reqConfig.url = `${reqConfig.url}${connector}${location.search.substring(1)}`;
       }
-      return request(reqConfig).then(res => res.data);
+      return request(reqConfig).then(res => res.data?.data);
     };
   };
 };
