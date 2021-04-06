@@ -1,6 +1,6 @@
 <template>
   <div>
-    Hello {{test}}
+    Hello {{time}}
   </div>
 </template>
 
@@ -15,7 +15,7 @@ import { mapMutations, mapState } from 'vuex';
   metaInfo: {},
   async asyncData() {
     store.commit('setTest', 'on asyncData');
-    return { time: new Date() };
+    return { time: Math.random() };
   },
   computed: {
     ...mapState(['test']),

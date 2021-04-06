@@ -1,6 +1,6 @@
 {
 	"name": "@riejs/packer-utils",
-	"version": "0.0.2",
+	"version": "0.0.5",
 	"description": "The utils for rie packer.",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
