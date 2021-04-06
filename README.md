@@ -9,26 +9,25 @@
 
 # RIE
 
-> Render it easily(RIE, /raɪ/). 通用同构服务端渲染方案
+Render it easily(RIE, /raɪ/). 通用服务端渲染(Server Side Render, SSR)方案
 
 ## 特性
 
-* 📦 开箱即用：npm package 方式快速接入 Koa 、EggJS 服务端项目
-* 💡 多渲染场景：渲染器插件化，支持 Vue 2.0，支持渐进式升级
+* 📦 开箱即用：Koa Middleware 方式接入 Koa 、EggJS 服务端项目
+* 💡 优雅降级：SSR 失败可以自动降级为 CSR 版本
 * 🛠 自动路由：由目录结构自动生成页面路由
 * ⚡️ CLI：快速构建
 
-## 快速接入
+## 接入
 
 ### 1. 安装
 
 ```shell
+# 安装 内核 + Vue2 渲染器
 tnpm i @riejs/rie
-
-# 安装渲染器，支持 Vue2
 tnpm i @riejs/renderer-vue2
 
-# 安装构建器和CLI工具
+# 安装 CLI + Vue2 构建器
 tnpm i -D @riejs/cli
 tnpm i -D @riejs/packer-vue2
 ```
@@ -43,6 +42,7 @@ import { RieOption } from '@riejs/rie';
 import { Renderer as Vue2Renderer } from '@riejs/renderer-vue2';
 
 export const config: RieOption = {
+  // 页面集合
   collections: [
     {
       dir: resolve(__dirname, './pages'),
@@ -50,21 +50,30 @@ export const config: RieOption = {
       Renderer: Vue2Renderer,
     },
   ],
+  // 开发模式（可选，默认 false）
   dev: true,
+  // 构建产物目录（可选，默认 dist 目录)
+  dist: '/path/to/dist',
+  // 构建产物的 publicPath（可选，默认 /dist）
+  publicPath: '/dist',
+  // SSR 失败回调
+  onError: (error, ctx) => {},
 };
 ```
 
 ### 3. 模块引入
 
 ```ts
+import * as Koa;
 import { rie } from '@riejs/rie';
 import { config } from './rie.config';
 
+const app = new Koa();
 app.use(rie(config));
 ```
 
 ### 4. 打包构建
 
 ```shell
-npx rie build
+npx rie build -c /path/to
 ```
