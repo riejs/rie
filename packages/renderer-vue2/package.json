@@ -1,6 +1,6 @@
 {
   "name": "@riejs/renderer-vue2",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "The vue2.0 renderer of rie.",
   "main": "lib/server.js",
   "browser": "lib/client.js",
@@ -8,6 +8,10 @@
   "scripts": {
     "build": "tsc"
   },
+  "files": [
+		"lib",
+    "types"
+	],
   "keywords": [
     "renderer",
     "vue2",

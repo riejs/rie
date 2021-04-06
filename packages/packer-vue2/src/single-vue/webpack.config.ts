@@ -100,6 +100,7 @@ export const client: WebpackOptions = {
           },
           mangle: true,
         },
+        extractComments: false,
       }),
     ],
   },
