@@ -75,5 +75,5 @@ app.use(rie(config));
 ### 4. 打包构建
 
 ```shell
-npx rie build -c /path/to
+npx rie build -c /path/to/rie.config.ts
 ```
