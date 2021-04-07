@@ -1,6 +1,6 @@
 {
 	"name": "@riejs/rie",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "The core of rie.",
 	"main": "lib/index.js",
 	"browser": "lib/client.js",

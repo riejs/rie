@@ -2,21 +2,26 @@
  * Rie Cookie
  */
 export interface RieCookie {
-  get(key: string): string;
+  get(key: string, option?: {
+    signed?: boolean; // 是否是签名的 cookie
+  }): string|null;
   set(
     key: string,
     value: string,
     options?: {
       domain?: string; // cookie 的域
-      expires?: Date; // cookie 到期时间（默认: 在会话结束时过期）
+      expires?: Date; // cookie 到期时间
       httpOnly?: boolean; // 是否仅能发送
       maxAge?: number; // cookie 有效时长，单位：毫秒
-      path?: string; // cookie 的路径（默认: /）
-      signed?: boolean; // 是否要对 cookie 进行签名 (默认: false)
-      overwrite: boolean; // 是否要覆盖以前
+      path?: string; // cookie 的路径
+      signed?: boolean; // 是否要对 cookie 进行签名
+      overwrite?: boolean; // 是否要覆盖以前
     },
   ): void;
-  del(key: string): void;
+  del(key: string, options?: {
+    domain?: string; // cookie 的域
+    path?: string; // cookie 的路径
+  }): void;
 }
 
 /**
@@ -31,7 +36,7 @@ export interface RieHeader {
  * Rie QueryString
  */
 export interface RieQuery {
-  [prop: string]: string;
+  [prop: string]: string|string[];
 }
 
 /**
@@ -67,9 +72,4 @@ export interface RieContext {
    * @member rawContext 原生上下文，Koa 环境为 koa ctx，仅在服务端有效
    */
   rawContext?: any;
-
-  /**
-   * @member rawContext 原生上下文，Koa 环境为 koa ctx，仅在服务端有效
-   */
-  body?: any;
 }
