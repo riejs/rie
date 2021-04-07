@@ -37,7 +37,11 @@ export const getConfig = function getConfig(base: WebpackOptions, option: GetCon
       loader: 'babel-loader',
       options: {
         cwd: __dirname,
-        presets: [['@babel/preset-env', { targets: { node: '10' } }], '@babel/preset-typescript'],
+        presets: [
+          ['@babel/preset-env', { targets: { node: '10' } }],
+          '@babel/preset-typescript',
+          'babel-preset-typescript-vue',
+        ],
         plugins: [['@babel/plugin-proposal-decorators', { legacy: true }], ['@babel/plugin-proposal-class-properties']],
       },
     },
