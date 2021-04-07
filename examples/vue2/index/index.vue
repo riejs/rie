@@ -3,8 +3,9 @@
 </template>
 
 <script lang="ts">
-import { user } from "../../services/user";
+import { getContext } from '@riejs/rie';
 import { Vue } from '@riejs/renderer-vue2';
+import { user } from "../../services/user";
 
 export default Vue.extend({
   metaInfo: {
@@ -16,10 +17,8 @@ export default Vue.extend({
   asyncData() {
     return user.getInfo();
   },
-  mixins: [
-    {
-      data: () => ({da: 1234}),
-    }
-  ],
+  mounted() {
+    console.log(getContext());
+  }
 });
 </script>

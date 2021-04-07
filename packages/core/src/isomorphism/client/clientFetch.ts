@@ -145,7 +145,7 @@ export const clientFetch = function clientFetch(config: AxiosRequestConfig, opti
       }
 
       // 同域的请求，页面有请求参数，并且需要追加到请求参数后面
-      if (isSamesite(reqConfig.url) && location.search && option.autoAppendPageQueryString) {
+      if (isSamesite(reqConfig.url) && location.search && fetchOption.autoAppendPageQueryString) {
         const connector = reqConfig.url.indexOf('?') > 0 ? '&' : '?';
         reqConfig.url = `${reqConfig.url}${connector}${location.search.substring(1)}`;
       }

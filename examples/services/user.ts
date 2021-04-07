@@ -1,12 +1,14 @@
-import { clientFetch } from '@riejs/rie';
+import { clientFetch, getContext } from '@riejs/rie';
 
 class UserServices {
   @clientFetch({
     url: '/ddd/dsadas',
   })
   public getInfo() {
+    const context = getContext();
     return {
       name: 'test',
+      ...context.query,
     };
   }
 

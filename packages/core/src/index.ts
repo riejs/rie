@@ -2,10 +2,11 @@ import { Middleware } from 'koa';
 import { render, initRenderer } from './render';
 import { scanPages, matchPage, PageCollection } from './route';
 import { handleService } from './service-manager';
+import { getContext, setContext, convertKoaCtx } from './isomorphism/server/context';
 
 export { Renderer, RendererOption, RendererInterface } from './renderer';
 export { clientFetch } from './isomorphism/server/clientFetch';
-export { getContext } from './isomorphism/server/context';
+export { getContext };
 
 /**
  * Rie 配置
@@ -52,7 +53,7 @@ export function rie({ collections, dev = false, onError = null, dist }: RieOptio
   }
 
   /* eslint-disable no-param-reassign */
-  return async (ctx, next) => {
+  return async (ctx, next) => setContext(convertKoaCtx(ctx), async () => {
     await handleService(ctx);
 
     if (ctx.body && ctx.status !== 404) {
@@ -83,5 +84,5 @@ export function rie({ collections, dev = false, onError = null, dist }: RieOptio
       }
     }
     return next();
-  };
+  });
 }

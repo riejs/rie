@@ -39,7 +39,6 @@ export const server: WebpackOptions = {
   ],
   externals: [
     function (context, request, callback) {
-      console.log(context, request);
       if (/^(vue|vuex|vue-meta)$/.test(request)) {
         return callback(null, `commonjs ${request}`);
       }
