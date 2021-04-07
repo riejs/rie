@@ -68,6 +68,7 @@ export const build = async function build({ config: configPath = '', mode = 'pro
         pages: packerMap[packer],
         dist: option.dist,
         publicPath: option.publicPath || '/dist/',
+        packerOption: packerMap[packer][0].packerOption,
       }).build();
     } catch (exception) {
       if (exception.message.search('Cannot find module') >= 0) {

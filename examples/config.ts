@@ -8,9 +8,25 @@ export const config: RieOption = {
       dir: resolve(__dirname, './vue2'),
       route: '/vue2',
       Renderer: Vue2Renderer,
+      packerOption: {
+        server: {
+          resolve: {
+            alias: {
+              '@': __dirname,
+            },
+          },
+        },
+        client: {
+          resolve: {
+            alias: {
+              '@': __dirname,
+            },
+          },
+        },
+      },
     },
   ],
-  dev: true,
+  dev: false,
   dist: resolve('./dist'),
   publicPath: '/dist/',
 };

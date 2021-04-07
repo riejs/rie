@@ -7,8 +7,9 @@ import { getConfig as getClientConfig } from '../conf/webpack.client';
 import { getConfig as getServerConfig } from '../conf/webpack.server';
 import clone from 'clone-deep';
 import { Page } from '@riejs/rie/lib/route';
-import { copy, copyPattern } from '../utlis/file';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { merge } from 'webpack-merge';
+import { copy, copyPattern } from '../utlis/file';
 import { getClientTemplate, getServerTemplate } from '../utlis/template';
 
 const defaultTemplate = readFileSync(resolve(__dirname, '../../template.html'), 'utf-8');
@@ -71,12 +72,16 @@ export class Packer {
         minify: false,
       }));
     });
+
     this.clientConfig = getClientConfig(this.clientConfig, {
       mode: 'production',
       dist: this.clientDist,
       entry,
       publicPath: option.publicPath,
     });
+    this.clientConfig.plugins.push(...clientPlugins);
+    this.clientConfig = merge(this.clientConfig, option.packerOption?.client ?? {});
+
     this.serverConfig = getServerConfig(this.serverConfig, {
       mode: 'production',
       dist: this.serverDist,
@@ -84,8 +89,8 @@ export class Packer {
       publicPath: option.publicPath,
       onProgress() {},
     });
-    this.clientConfig.plugins.push(...clientPlugins);
     this.serverConfig.plugins.push(...serverPlugins);
+    this.serverConfig = merge(this.serverConfig, option.packerOption?.server ?? {});
   }
 
   /**

@@ -28,7 +28,7 @@ const rendererManager: {
 } = {};
 
 export const initRenderer = function initRenderer(page: Page, { dev, dist }) {
-  const { route, dir, template } = page;
+  const { route, dir, template, packerOption } = page;
   let templateStr = '';
   if (template) {
     templateStr = readFileSync(template, 'utf-8');
@@ -41,6 +41,7 @@ export const initRenderer = function initRenderer(page: Page, { dev, dist }) {
         dist,
         route,
         template: templateStr,
+        packerOption,
       }),
     };
     rendererManager[route] = renderer;

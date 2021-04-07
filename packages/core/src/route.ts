@@ -3,6 +3,21 @@ import { resolve } from 'path';
 import { Renderer } from './renderer';
 
 /**
+ * 自定义构建配置
+ */
+export interface CustomPackerOption {
+  /**
+   * @member {object} client 浏览器端构建配置
+   */
+  client?: object;
+
+  /**
+   * @member {object} server 服务器端构建配置
+   */
+  server?: object;
+}
+
+/**
  * 页面集合，对应多个页面
  */
 export interface PageCollection {
@@ -25,6 +40,11 @@ export interface PageCollection {
    * @member {string} template 自定义渲染模版的路径
    */
   template?: string;
+
+  /**
+   * @member {CustomPackerOption} packerOption 自定义构建配置
+   */
+   packerOption?: CustomPackerOption
 }
 
 /**
@@ -50,6 +70,11 @@ export interface Page {
    * @member {Renderer} Renderer 所依赖的渲染器
    */
   Renderer: Renderer;
+
+  /**
+   * @member {CustomPackerOption} packerOption 自定义构建配置
+   */
+  packerOption?: CustomPackerOption
 }
 
 // 保留目录名
@@ -64,7 +89,7 @@ export function scanPages(collections: PageCollection[]): Page[] {
   const pages: Page[] = [];
   const pageMap = {};
   collections.forEach((pageDir) => {
-    const { dir, Renderer, route = '', template = '' } = pageDir;
+    const { dir, Renderer, route = '', template = '', packerOption } = pageDir;
     const connector = route.match(/\/$/) ? '' : '/';
     readdirSync(dir, { withFileTypes: true })
       .filter(sub => sub.isDirectory() && preserveDirs.indexOf(sub.name) < 0)
@@ -77,6 +102,7 @@ export function scanPages(collections: PageCollection[]): Page[] {
             template,
             dir: resolve(dir, sub.name),
             route: page,
+            packerOption,
           });
         }
       });

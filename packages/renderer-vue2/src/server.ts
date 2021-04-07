@@ -60,6 +60,7 @@ class Renderer implements RendererInterface {
         route: this.option.route,
         dir: this.option.dir,
         template: this.option.template,
+        packerOption: this.option.packerOption,
       });
       this.devPacker.on('ready', ({ dist }) => this.createInnerRenderer(dist));
       this.innerRenderer = await this.devPacker.getBuildingRenderer();
@@ -81,10 +82,10 @@ class Renderer implements RendererInterface {
       const appPath = resolve(serverDist, `.${route}`, 'app.js');
       const template = readFileSync(resolve(serverDist, `.${route}`, 'template.html'), 'utf-8');
 
-      delete require.cache[serverBundlePath];
-      delete require.cache[manifestPath];
-      delete require.cache[appManifestPath];
-      delete require.cache[appPath];
+      require.cache[serverBundlePath] = undefined;
+      require.cache[manifestPath] = undefined;
+      require.cache[appManifestPath] = undefined;
+      require.cache[appPath] = undefined;
 
       /* eslint-disable @typescript-eslint/no-require-imports */
       const serverBundle = require(serverBundlePath);
