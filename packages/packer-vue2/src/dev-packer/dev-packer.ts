@@ -1,8 +1,9 @@
 import { EventEmitter } from 'events';
-import { getUsablePort } from '@riejs/packer-utils';
 import { readFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve } from 'path';
 import { PassThrough } from 'stream';
+import { CustomPackerOption } from '@riejs/rie/lib/route';
+import { getUsablePort } from '@riejs/packer-utils';
 import clone from 'clone-deep';
 import { createProxyServer } from 'http-proxy';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -10,6 +11,7 @@ import Koa from 'koa';
 import serve from 'koa-static';
 import webpack from 'webpack';
 import { WebpackOptions } from 'webpack/declarations/WebpackOptions';
+import { merge } from 'webpack-merge';
 import { hot } from './middleware-hot';
 import { config as base } from '../conf/webpack.base';
 import { getConfig as getClientConfig } from '../conf/webpack.client';
@@ -28,9 +30,25 @@ const defalutTemplate = readFileSync(resolve(__dirname, '../../template.html'), 
 const sendEventSource = (event, data): string => `event:${event}\ndata: ${data}\n\n`;
 
 interface DevPackerOption {
+  /**
+   * @member {string} route 页面路由
+   */
   route: string;
+
+  /**
+   * @member {string} dir 页面所在目录
+   */
   dir: string;
+
+  /**
+   * @member {string} template 渲染模版
+   */
   template: string;
+
+  /**
+   * @member {CustomPackerOption} packerOption 自定义构建配置
+   */
+  packerOption?: CustomPackerOption;
 }
 
 /**
@@ -57,7 +75,7 @@ export class DevPacker extends EventEmitter {
     return `${this.route}/__webpack_hmr`;
   }
 
-  public constructor({ route, dir, template }: DevPackerOption) {
+  public constructor({ route, dir, template, packerOption }: DevPackerOption) {
     super();
     this.route = route;
 
@@ -91,6 +109,8 @@ export class DevPacker extends EventEmitter {
       inject: false,
       filename: resolve(serverDist, './template.html'),
     }));
+    this.serverConfig = merge(this.serverConfig, packerOption?.server ?? {});
+
     this.clientConfig = getClientConfig(this.clientConfig, {
       mode: 'development',
       entry: resolve(dir, './index.vue'),
@@ -105,6 +125,7 @@ export class DevPacker extends EventEmitter {
         }
       },
     });
+    this.clientConfig = merge(this.clientConfig, packerOption?.client ?? {});
   }
 
   public async getBuildingRenderer() {

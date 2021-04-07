@@ -1,3 +1,5 @@
+import { CustomPackerOption } from './route';
+
 /**
  * 渲染器配置
  */
@@ -26,6 +28,11 @@ export interface RendererOption {
    * @member {string} template 构建产物目录，非开发模式必传
    */
   dist: string;
+
+  /**
+   * @member {CustomPackerOption} packerOption 自定义构建配置
+   */
+  packerOption?: CustomPackerOption
 }
 
 /**
