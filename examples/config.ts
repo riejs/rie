@@ -26,7 +26,7 @@ export const config: RieOption = {
       },
     },
   ],
-  dev: false,
+  dev: true,
   dist: resolve('./dist'),
   publicPath: '/dist/',
 };

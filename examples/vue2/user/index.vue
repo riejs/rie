@@ -25,7 +25,7 @@ import { mapMutations, mapState } from 'vuex';
   }
 })
 export default class User extends Vue {
-  name = 'dadas';
+  public name = 'dadas';
   created() {
     console.log(this.$store.state);
   }

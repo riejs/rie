@@ -1070,7 +1070,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-typescript@npm:^7.13.0":
+"@babel/plugin-transform-typescript@npm:^7.13.0, @babel/plugin-transform-typescript@npm:^7.3.2":
   version: 7.13.0
   resolution: "@babel/plugin-transform-typescript@npm:7.13.0"
   dependencies:
@@ -1200,7 +1200,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-typescript@npm:^7.13.0":
+"@babel/preset-typescript@npm:^7.13.0, @babel/preset-typescript@npm:^7.3.3":
   version: 7.13.0
   resolution: "@babel/preset-typescript@npm:7.13.0"
   dependencies:
@@ -1601,6 +1601,7 @@ __metadata:
     "@types/gulp": ^4.0.8
     "@types/koa": ^2.11.4
     babel-loader: ^8.1.0
+    babel-preset-typescript-vue: ^1.1.1
     clone-deep: ^4.0.1
     core-js: ^3.6.5
     css-loader: ^5.2.0
@@ -3255,6 +3256,20 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0
   checksum: 466ca17bba2638cadda5c25f3108dab1867b30e5d728366d0d2309be5d6555db8738a6cacd2c43284bee2ce7917e3285194c223a22b3d9817794f00c2775fdb2
+  languageName: node
+  linkType: hard
+
+"babel-preset-typescript-vue@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "babel-preset-typescript-vue@npm:1.1.1"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.0.0
+    "@babel/plugin-transform-typescript": ^7.3.2
+    "@babel/preset-typescript": ^7.3.3
+    vue-template-compiler: ^2.6.11
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 0ba79c64ed696feeebd52724ce6fcbb960e1f7ad0c70330ae9f635cdfa52bdc57c2cef0a4e7c0514bb11c7ac2ab84b9da08549c48827fc9e176ecac851599c6c
   languageName: node
   linkType: hard
 
@@ -13242,7 +13257,7 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
-"vue-template-compiler@npm:^2.6.12":
+"vue-template-compiler@npm:^2.6.11, vue-template-compiler@npm:^2.6.12":
   version: 2.6.12
   resolution: "vue-template-compiler@npm:2.6.12"
   dependencies:

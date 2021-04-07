@@ -64,6 +64,7 @@ export const getConfig = function getConfig(base: WebpackOptions, option: GetCon
                 },
               ],
               '@babel/preset-typescript',
+              'babel-preset-typescript-vue',
             ],
             plugins: [
               ['@babel/plugin-transform-runtime'],
