@@ -1,7 +1,7 @@
 <template>
   <div>
     <keep-live>
-      <Info v-if="testStatus === true" />
+      <Info v-if="testStatus === '123'" />
     </keep-live>
     Hello {{time}}
   </div>
@@ -33,15 +33,21 @@ import Info from './info.vue';
 })
 export default class User extends Vue {
   public name = 'dadas';
-  public testStatus = true;
-  created() {
+  private testStatus = '';
+  mounted() {
+    this.testStatus = '123';
     console.log(this.$store.state);
   }
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 body {
   background-color: #fdd;
+}
+.dasta {
+  & > .data {
+    font-size: 12px;
+  }
 }
 </style>

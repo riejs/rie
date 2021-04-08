@@ -41,6 +41,7 @@
     "memory-fs": "^0.5.0",
     "mini-css-extract-plugin": "^0.11.3",
     "null-loader": "^4.0.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
     "stream-cp": "^0.1.1",
     "terser-webpack-plugin": "^4.2.3",
     "ts-loader": "^8.0.4",

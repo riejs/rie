@@ -1,4 +1,5 @@
 import MiniCssExtractPlugin, { loader as MiniCssExtractLoader } from 'mini-css-extract-plugin';
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import VueSSRClientPlugin from 'vue-server-renderer/client-plugin';
 import * as webpack from 'webpack';
 import { WebpackOptions } from 'webpack/declarations/WebpackOptions';
@@ -107,7 +108,10 @@ export const getConfig = function getConfig(base: WebpackOptions, option: GetCon
       new webpack.ProgressPlugin(option.onProgress),
     );
   } else {
-    config.plugins.push(new MiniCssExtractPlugin({ filename: '[name]/app.[contenthash:4].css' }));
+    config.plugins.push(
+      new MiniCssExtractPlugin({ filename: '[name]/app.[contenthash:4].css' }),
+      new OptimizeCssAssetsPlugin(),
+    );
   }
 
   return config;
