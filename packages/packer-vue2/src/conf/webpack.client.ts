@@ -1,4 +1,4 @@
-import { loader as MiniCssExtractLoader } from 'mini-css-extract-plugin';
+import MiniCssExtractPlugin, { loader as MiniCssExtractLoader } from 'mini-css-extract-plugin';
 import VueSSRClientPlugin from 'vue-server-renderer/client-plugin';
 import * as webpack from 'webpack';
 import { WebpackOptions } from 'webpack/declarations/WebpackOptions';
@@ -78,11 +78,15 @@ export const getConfig = function getConfig(base: WebpackOptions, option: GetCon
     },
     {
       test: /\.css$/,
-      use: [isDev ? 'vue-style-loader' : MiniCssExtractLoader, 'css-loader'],
+      use: [isDev ? 'vue-style-loader' : MiniCssExtractLoader, { loader: 'css-loader', options: { esModule: false } }],
     },
     {
       test: /\.less$/,
-      use: [isDev ? 'vue-style-loader' : MiniCssExtractLoader, 'css-loader', 'less-loader'],
+      use: [
+        isDev ? 'vue-style-loader' : MiniCssExtractLoader,
+        { loader: 'css-loader', options: { esModule: false } },
+        'less-loader',
+      ],
     },
   );
 
@@ -102,6 +106,8 @@ export const getConfig = function getConfig(base: WebpackOptions, option: GetCon
       new webpack.NoEmitOnErrorsPlugin(),
       new webpack.ProgressPlugin(option.onProgress),
     );
+  } else {
+    config.plugins.push(new MiniCssExtractPlugin({ filename: '[name]/app.[contenthash:4].css' }));
   }
 
   return config;
