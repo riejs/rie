@@ -1,0 +1,41 @@
+{
+  "name": "@riejs/packer-vue3",
+  "version": "0.0.0",
+  "description": "The vue3.0 packer of rie.",
+  "main": "lib/index.js",
+  "scripts": {
+    "dev": "gulp watch",
+    "build": "gulp build"
+  },
+  "keywords": [
+    "packer",
+    "vue3",
+    "ssr",
+    "rie"
+  ],
+  "files": [
+    "lib",
+    "building.html",
+    "template.html"
+  ],
+  "author": "incca",
+  "license": "MIT",
+  "dependencies": {
+    "@riejs/packer-utils": "workspace:packages/packer-utils",
+    "@vitejs/plugin-vue": "^1.2.1",
+    "@vue/compiler-sfc": "^3.0.11",
+    "@vue/server-renderer": "^3.0.11",
+    "express": "^4.17.1",
+    "http-proxy": "^1.18.1",
+    "vite": "^2.1.5",
+    "vue": "^3.0.11"
+  },
+  "devDependencies": {
+    "@riejs/rie": "workspace:packages/core"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:riejs/rie.git",
+    "directory": "packages/packer-vue3"
+  }
+}

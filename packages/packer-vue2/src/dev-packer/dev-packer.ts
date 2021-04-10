@@ -20,7 +20,7 @@ import { copy } from '../utlis/file';
 import { getServerTemplate } from '../utlis/template';
 
 const MIN_PORT = 50000;
-const MAX_PORT = 60000;
+const MAX_PORT = 50999;
 const buildingHtml = readFileSync(resolve(__dirname, '../../building.html'), 'utf-8');
 const defalutTemplate = readFileSync(resolve(__dirname, '../../template.html'), 'utf-8');
 

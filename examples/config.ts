@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import { RieOption } from '@riejs/rie';
 import { Renderer as Vue2Renderer } from '@riejs/renderer-vue2';
+import { Renderer as Vue3Renderer } from '@riejs/renderer-vue3';
 
 export const config: RieOption = {
   collections: [
@@ -24,6 +25,11 @@ export const config: RieOption = {
           },
         },
       },
+    },
+    {
+      dir: resolve(__dirname, './vue3'),
+      route: '/vue3',
+      Renderer: Vue3Renderer,
     },
   ],
   dev: true,
