@@ -1,0 +1,35 @@
+{
+  "name": "@riejs/renderer-vue3",
+  "version": "0.0.0",
+  "description": "The vue3.0 renderer of rie.",
+  "main": "lib/server.js",
+  "browser": "lib/client.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "lib",
+    "types"
+  ],
+  "keywords": [
+    "renderer",
+    "vue3",
+    "ssr",
+    "rie"
+  ],
+  "author": "incca",
+  "license": "MIT",
+  "devDependencies": {
+    "@riejs/rie": "workspace:packages/core"
+  },
+  "dependencies": {
+    "@vue/server-renderer": "^3.0.11",
+    "vue": "^3.0.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:riejs/rie.git",
+    "directory": "packages/renderer-vue3"
+  }
+}
