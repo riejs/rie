@@ -1,3 +1,4 @@
+import './replace-resolve-sync';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { getUsablePort } from '@riejs/packer-utils';
@@ -36,6 +37,13 @@ class DevRenderer {
         middlewareMode: true,
       },
     });
+    app.get(`${this.base}export-app`, (req, res) => res
+      .status(200)
+      .set({ 'Content-Type': 'application/javascript' })
+      .end([
+        `import App from '${this.base}@fs${this.option.dir}/index.vue';`,
+        'window.rieApp = App;',
+      ].join('\n')));
     app.use(viteDevServer.middlewares);
     app.use('*', this.renderHandler.bind(this));
     const port = await getUsablePort(MIN_PORT, MAX_PORT);
@@ -63,12 +71,20 @@ class DevRenderer {
   }
 
   private async renderHandler(req: express.Request, res: express.Response) {
-    const template = await this.viteDevServer.transformIndexHtml(req.originalUrl, this.template);
-    // const App = await this.viteDevServer.ssrLoadModule(`${this.option.dir}/index.vue`);
-    // console.log(App);
+    const [template, entry, App] = await Promise.all([
+      this.viteDevServer.transformIndexHtml(req.originalUrl, this.template),
+      this.viteDevServer.ssrLoadModule('/entry-server'),
+      this.viteDevServer.ssrLoadModule(`${this.option.dir}/index.vue`),
+    ]);
+    const [appHtml, preloadLinks] = await entry.render(App.default ?? App, {});
+
+    const html = template
+      .replace('<!--preload-links-->', preloadLinks)
+      .replace('<!--app-html-->', appHtml);
+
     res.status(200)
       .set({ 'Content-Type': 'text/html' })
-      .end(template);
+      .end(html);
   }
 };
 

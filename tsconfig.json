@@ -10,7 +10,8 @@
       "resolveJsonModule": true,
       "experimentalDecorators": true,
       "removeComments": false,
-      "skipLibCheck": true
+      "skipLibCheck": true,
+      "allowJs": true
   },
   "exclude": [
       "node_modules"
