@@ -1,13 +1,13 @@
 <template>
   <div>
-    <p>{{ name }}</p>
+    <p>Hello {{ name }}</p>
   </div>
 </template>
 
 <script lang="ts">
 export default {
-  data() {
-    return {name: 'dasdssda'};
+  async setup() {
+    return { name: '321321312312343434242342' };
   }
 }
 </script>

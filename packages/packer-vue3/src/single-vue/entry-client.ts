@@ -1,18 +1,17 @@
-import { createSSRApp } from 'vue';
-// @ts-ignore
-import App from './Main.vue';
+import { createApp } from './app';
 
-// SSR requires a fresh app instance per request, therefore we export a function
-// that creates a fresh app instance. If using Vuex, we'd also be creating a
-// fresh store here.
-function createApp() {
-  const app = createSSRApp(App);
-  return { app };
-};
+interface ExtendedWindow extends Window {
+  /**
+   * @member {Object} rieApp Vue PageComponent
+   */
+   rieApp?: object;
+}
 
-const { app } = createApp();
+declare const window: ExtendedWindow;
 
-// wait until router is ready before mounting to ensure hydration match
+const { app } = createApp(window.rieApp);
+
 const instance = app.mount('#app');
+/* eslint-disable no-underscore-dangle */
 // @ts-ignore
 app._container._vnode = instance.$.vnode;
