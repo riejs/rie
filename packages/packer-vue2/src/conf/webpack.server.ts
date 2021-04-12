@@ -52,7 +52,10 @@ export const getConfig = function getConfig(base: WebpackOptions, option: GetCon
         presets: [
           ['@babel/preset-env', { targets: { node: '10' } }],
         ],
-        plugins: [['@babel/plugin-proposal-decorators', { legacy: true }], ['@babel/plugin-proposal-class-properties']],
+        plugins: [
+          ['@babel/plugin-proposal-decorators', { legacy: true }],
+          ['@babel/plugin-proposal-class-properties'],
+        ],
       },
     },
     {

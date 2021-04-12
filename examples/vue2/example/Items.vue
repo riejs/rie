@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-for="item in items" :key="item">{{ item }}</p>
+    <p v-for="item in items" :key="item">{{ item }} - {{ activeTab }}</p>
   </div>
 </template>
 
@@ -12,9 +12,15 @@ export default class Items extends Vue {
   @Prop()
   items: any[];
 
+  activeTab = this.items.findIndex(tab => tab === 'info');
+
   constructor() {
     super();
     console.log({ propItems: this.items });
+  }
+
+  mounted() {
+    console.log('32132132432432432432');
   }
 }
 </script>

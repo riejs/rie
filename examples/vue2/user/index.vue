@@ -38,12 +38,15 @@ export default class User extends Vue {
     super();
     this.testStatus = '123';
   }
+  mounted() {
+    this.$store.commit('setTest', 'Haha mounted');
+  }
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 body {
-  background-color: #fdd;
+  background-color: #ddf;
 }
 .dasta {
   & > .data {
