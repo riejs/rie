@@ -48,7 +48,19 @@ export const getConfig = function getConfig(base: WebpackOptions, option: GetCon
 
   config.module.rules.push(
     {
-      test: /\.(ts|js)x?$/,
+      test: /\.tsx?$/,
+      loader: 'ts-loader',
+      options: {
+        appendTsSuffixTo: [/\.vue$/],
+        transpileOnly: true,
+        compilerOptions: {
+          target: 'es5',
+          esModuleInterop: true,
+        },
+      },
+    },
+    {
+      test: /\.jsx?$/,
       use: [
         {
           loader: 'babel-loader',
@@ -64,8 +76,6 @@ export const getConfig = function getConfig(base: WebpackOptions, option: GetCon
                   },
                 },
               ],
-              '@babel/preset-typescript',
-              'babel-preset-typescript-vue',
             ],
             plugins: [
               ['@babel/plugin-transform-runtime'],
