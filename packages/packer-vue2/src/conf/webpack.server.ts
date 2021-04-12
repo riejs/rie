@@ -33,14 +33,24 @@ export const getConfig = function getConfig(base: WebpackOptions, option: GetCon
   };
   config.module.rules.push(
     {
-      test: /\.(ts|js)x?$/,
+      test: /\.tsx?$/,
+      loader: 'ts-loader',
+      options: {
+        appendTsSuffixTo: [/\.vue$/],
+        transpileOnly: true,
+        compilerOptions: {
+          target: 'es2018',
+          esModuleInterop: true,
+        },
+      },
+    },
+    {
+      test: /\.jsx?$/,
       loader: 'babel-loader',
       options: {
         cwd: __dirname,
         presets: [
           ['@babel/preset-env', { targets: { node: '10' } }],
-          '@babel/preset-typescript',
-          'babel-preset-typescript-vue',
         ],
         plugins: [['@babel/plugin-proposal-decorators', { legacy: true }], ['@babel/plugin-proposal-class-properties']],
       },

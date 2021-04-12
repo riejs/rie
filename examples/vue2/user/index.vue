@@ -3,7 +3,7 @@
     <keep-live>
       <Info v-if="testStatus === '123'" />
     </keep-live>
-    Hello {{time}}
+    Hello {{time}} {{ test }}
   </div>
 </template>
 
@@ -34,14 +34,14 @@ import Info from './info.vue';
 export default class User extends Vue {
   public name = 'dadas';
   private testStatus = '';
-  mounted() {
+  constructor() {
+    super();
     this.testStatus = '123';
-    console.log(this.$store.state);
   }
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 body {
   background-color: #fdd;
 }
