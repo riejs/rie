@@ -1,5 +1,22 @@
 import { readFileSync } from 'fs';
-import { resolve } from 'path';
+import { resolve, join } from 'path';
+import { URL } from 'url';
+
+/**
+ * /xxx 和 a.js 进行拼接，得到 /xxx/a.js
+ * https://xxx.com 和 a.js 进行拼接，得到 https://xxx.com/a.js
+ * @param {string} base 基础路径
+ * @param {string} asset 资源路径
+ * @returns {string}
+ */
+function resolver(base: string, asset: string) {
+  const dist = /\/$/.test(base) ? base : `${base}/`;
+  // 链接是 http://, https://, 则为 url 链接
+  if (/^https?:\/\//i.test(dist)) {
+    return new URL(asset, dist).href;
+  }
+  return join(dist, asset);
+}
 
 const initScript = isDev => `
   <script>
@@ -41,8 +58,8 @@ export const getClientTemplate = function getServerTemplate(template: string, { 
   const headScripts = [];
   manifest.initial.forEach((asset: string) => {
     const script = asset.match(/\.js$/)
-      ? `<script defer src="${resolve(publicPath, asset)}"></script>`
-      : `<link rel="stylesheet" herf="${resolve(publicPath, asset)}" >`;
+      ? `<script defer src="${resolver(publicPath, asset)}"></script>`
+      : `<link rel="stylesheet" herf="${resolver(publicPath, asset)}" >`;
     headScripts.push(script);
   });
   headScripts.push('</head>');

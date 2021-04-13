@@ -50,15 +50,20 @@ export const getConfig = function getConfig(base: WebpackOptions, option: GetCon
   config.module.rules.push(
     {
       test: /\.tsx?$/,
-      loader: 'ts-loader',
-      options: {
-        appendTsSuffixTo: [/\.vue$/],
-        transpileOnly: true,
-        compilerOptions: {
-          target: 'es5',
-          esModuleInterop: true,
+      use: [
+        {
+          loader: 'ts-loader',
+          options: {
+            appendTsSuffixTo: [/\.vue$/],
+            transpileOnly: true,
+            compilerOptions: {
+              target: 'es5',
+              esModuleInterop: true,
+            },
+          },
         },
-      },
+        '@riejs/packer-utils/lib/loaders/client-fetch-loader',
+      ],
     },
     {
       test: /\.jsx?$/,
