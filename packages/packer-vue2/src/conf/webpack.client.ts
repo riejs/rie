@@ -1,6 +1,7 @@
 import MiniCssExtractPlugin, { loader as MiniCssExtractLoader } from 'mini-css-extract-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import VueSSRClientPlugin from 'vue-server-renderer/client-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
 import * as webpack from 'webpack';
 import { WebpackOptions } from 'webpack/declarations/WebpackOptions';
 interface GetConfigOption {
@@ -122,6 +123,25 @@ export const getConfig = function getConfig(base: WebpackOptions, option: GetCon
       new MiniCssExtractPlugin({ filename: '[name]/app.[contenthash:4].css' }),
       new OptimizeCssAssetsPlugin(),
     );
+    config.optimization = {
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              drop_console: true,
+              collapse_vars: true,
+              reduce_vars: true,
+            },
+            output: {
+              beautify: false,
+              comments: false,
+            },
+            mangle: true,
+          },
+          extractComments: false,
+        }),
+      ],
+    };
   }
 
   return config;
