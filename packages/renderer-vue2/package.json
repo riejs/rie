@@ -1,6 +1,6 @@
 {
   "name": "@riejs/renderer-vue2",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "The vue2.0 renderer of rie.",
   "main": "lib/server.js",
   "browser": "lib/client.js",
