@@ -16,7 +16,6 @@ export default class Items extends Vue {
 
   constructor() {
     super();
-    console.log({ propItems: this.items });
   }
 
   mounted() {

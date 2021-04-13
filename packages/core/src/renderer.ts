@@ -33,6 +33,11 @@ export interface RendererOption {
    * @member {CustomPackerOption} packerOption 自定义构建配置
    */
   packerOption?: CustomPackerOption
+
+  /**
+   * @member {string} runtimePublicPath 运行时的 publicPath，可选
+   */
+  runtimePublicPath?: string;
 }
 
 /**

@@ -12046,6 +12046,7 @@ fsevents@^1.2.7:
     ts-jest: ^26.5.0
     ts-node: ^9.0.0
     typescript: ^4.1.3
+    vue-property-decorator: ^9.1.2
   languageName: unknown
   linkType: soft
 
@@ -14156,6 +14157,16 @@ typescript@^4.1.3:
   dependencies:
     deepmerge: ^4.2.2
   checksum: 529ada6c6dc759d2c7aecc77d0d04c1fc60add706b356bb12391cb31149b722f1fe35d1fa171bb154d67ccd76e538aa649673a8aca1f69a493c7e788d79a6c4a
+  languageName: node
+  linkType: hard
+
+"vue-property-decorator@npm:^9.1.2":
+  version: 9.1.2
+  resolution: "vue-property-decorator@npm:9.1.2"
+  peerDependencies:
+    vue: "*"
+    vue-class-component: "*"
+  checksum: a4af390197a0f0695f72804be2d71b1fb3530b34d9f425f38c42aae2fc3024d85fc0ccfd60aefb5e3413a8b3fcba7428f4c12379e110831c53616082fb6730a6
   languageName: node
   linkType: hard
 

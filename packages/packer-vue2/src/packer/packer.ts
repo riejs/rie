@@ -59,7 +59,10 @@ export class Packer {
       const isDev = option.mode === 'development' || option.mode === 'test';
       clientPlugins.push(new HtmlWebpackPlugin({
         scriptLoading: 'defer',
-        templateContent: getClientTemplate(template, { publicPath: option.publicPath, isDev }),
+        templateContent: getClientTemplate(template, {
+          publicPath: option.runtimePublicPath || option.publicPath,
+          isDev,
+        }),
         chunks: [chunkId],
         filename: resolve(this.clientDist, `.${page.route}`, './index.html'),
         minify: false,
