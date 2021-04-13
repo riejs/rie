@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import webpack from 'webpack';
 import { WebpackOptions } from 'webpack/declarations/WebpackOptions';
@@ -28,6 +28,9 @@ export class Packer {
   }
   private get serverDist(): string {
     return resolve(this.option.dist, 'server');
+  }
+  private get serverRuntimeManifest(): string {
+    return resolve(this.serverDist, './rie.vue2.runtime.manifest.json');
   }
 
   public constructor(option) {
@@ -104,6 +107,12 @@ export class Packer {
       console.log(error);
     });
     await copy(this.patterns);
+    if (this.option.runtimePublicPath) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const runtimeManifest = require(this.serverRuntimeManifest);
+      runtimeManifest.publicPath = this.option.runtimePublicPath;
+      writeFileSync(this.serverRuntimeManifest, JSON.stringify(runtimeManifest, null, 2), 'utf-8');
+    }
   }
 
   private compile(options: WebpackOptions[]): Promise<boolean> {

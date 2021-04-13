@@ -118,9 +118,9 @@ class Renderer implements RendererInterface {
       initial: runtime.initial.concat(initialFiles),
       modules: {},
     };
-    // 非开发模式，且传入了 runtimePublicPath
-    if (!isDev && this.option.runtimePublicPath) {
-      const { runtimePublicPath } = this.option;
+    // 如果 runtime 自定义了 publicPath，需要分别为计算成完整路径后，再合并 manifest
+    if (runtime.publicPath) {
+      const { publicPath: runtimePublicPath } = runtime;
       const { publicPath } = app;
       clientManifest = {
         ...clientManifest,

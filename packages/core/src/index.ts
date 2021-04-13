@@ -48,13 +48,13 @@ export interface RieOption {
  * @param {RieOption} RieOption - rie 配置
  * @returns {Middleware} Koa SSR 中间件
  */
-export function rie({ collections, dev = false, onError = null, dist, runtimePublicPath }: RieOption): Middleware {
+export function rie({ collections, dev = false, onError = null, dist }: RieOption): Middleware {
   if (!Array.isArray(collections) || collections.length === 0) {
     throw new Error('pageDirs must be a nonempty array');
   }
   const targetPages = scanPages(collections);
   if (!dev) {
-    targetPages.forEach(page => initRenderer(page, { dev, dist, runtimePublicPath }));
+    targetPages.forEach(page => initRenderer(page, { dev, dist }));
   }
 
   /* eslint-disable no-param-reassign */
