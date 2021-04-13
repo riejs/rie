@@ -33,6 +33,11 @@ export interface RieOption {
   publicPath?: string;
 
   /**
+   * @member {string} runtimePublicPath 运行时的 publicPath，可选
+   */
+  runtimePublicPath?: string;
+
+  /**
    * @member {Function} onError 错误回调函数
    */
   onError?: (Error: Error, BaseContext) => void;
@@ -43,13 +48,13 @@ export interface RieOption {
  * @param {RieOption} RieOption - rie 配置
  * @returns {Middleware} Koa SSR 中间件
  */
-export function rie({ collections, dev = false, onError = null, dist }: RieOption): Middleware {
+export function rie({ collections, dev = false, onError = null, dist, runtimePublicPath }: RieOption): Middleware {
   if (!Array.isArray(collections) || collections.length === 0) {
     throw new Error('pageDirs must be a nonempty array');
   }
   const targetPages = scanPages(collections);
   if (!dev) {
-    targetPages.forEach(page => initRenderer(page, { dev, dist }));
+    targetPages.forEach(page => initRenderer(page, { dev, dist, runtimePublicPath }));
   }
 
   /* eslint-disable no-param-reassign */

@@ -41,8 +41,8 @@ export const getClientTemplate = function getServerTemplate(template: string, { 
   const headScripts = [];
   manifest.initial.forEach((asset: string) => {
     const script = asset.match(/\.js$/)
-      ? `<script defer src="${publicPath}${asset}"></script>`
-      : `<link rel="stylesheet" herf="${publicPath}${asset}" >`;
+      ? `<script defer src="${resolve(publicPath, asset)}"></script>`
+      : `<link rel="stylesheet" herf="${resolve(publicPath, asset)}" >`;
     headScripts.push(script);
   });
   headScripts.push('</head>');

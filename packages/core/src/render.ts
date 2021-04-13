@@ -21,13 +21,18 @@ export interface RenderOption {
    * @member {String} dist 构建产物目录
    */
   dist: string;
+
+  /**
+   * @member {string} runtimePublicPath 运行时的 publicPath，可选
+   */
+  runtimePublicPath?: string;
 }
 
 const rendererManager: {
   [key: string]: { renderer: RendererInterface };
 } = {};
 
-export const initRenderer = function initRenderer(page: Page, { dev, dist }) {
+export const initRenderer = function initRenderer(page: Page, { dev, dist, runtimePublicPath }) {
   const { route, dir, template, packerOption } = page;
   let templateStr = '';
   if (template) {
@@ -40,6 +45,7 @@ export const initRenderer = function initRenderer(page: Page, { dev, dist }) {
         dir,
         dist,
         route,
+        runtimePublicPath,
         template: templateStr,
         packerOption,
       }),
@@ -51,9 +57,9 @@ export const initRenderer = function initRenderer(page: Page, { dev, dist }) {
   }
 };
 
-export async function render(ctx: BaseContext, { page, dev, dist }: RenderOption): Promise<string> {
+export async function render(ctx: BaseContext, { page, dev, dist, runtimePublicPath }: RenderOption): Promise<string> {
   if (rendererManager[page.route] === undefined) {
-    await initRenderer(page, { dev, dist });
+    await initRenderer(page, { dev, dist, runtimePublicPath });
   }
   return await rendererManager[page.route].renderer.render(ctx);
 }

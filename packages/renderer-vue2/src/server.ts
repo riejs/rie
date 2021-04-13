@@ -111,13 +111,31 @@ class Renderer implements RendererInterface {
     const isDev = this.option.dev;
     const initialFiles = app.initial.filter((file: string) => file.startsWith(route) || isDev);
     const asyncFiles = app.async.filter((file: string) => file.startsWith(route) || isDev);
-    const clientManifest = {
+    let clientManifest = {
       publicPath: app.publicPath,
       all: runtime.all.concat(app.all),
       async: runtime.async.concat(asyncFiles),
       initial: runtime.initial.concat(initialFiles),
       modules: {},
     };
+    // 非开发模式，且传入了 runtimePublicPath
+    if (!isDev && this.option.runtimePublicPath) {
+      const { runtimePublicPath } = this.option;
+      const { publicPath } = app;
+      clientManifest = {
+        ...clientManifest,
+        publicPath: '',
+        all: runtime.all
+          .map(asset => resolve(runtimePublicPath, asset))
+          .concat(app.all.map(asset => resolve(publicPath, asset))),
+        async: runtime.async
+          .map(asset => resolve(runtimePublicPath, asset))
+          .concat(asyncFiles.map(asset => resolve(publicPath, asset))),
+        initial: runtime.initial
+          .map(asset => resolve(runtimePublicPath, asset))
+          .concat(initialFiles.map(asset => resolve(publicPath, asset))),
+      };
+    }
     const offset = runtime.all.length;
     Object.keys(runtime.modules).forEach((hash) => {
       clientManifest.modules[hash] = [...runtime.modules[hash]];
