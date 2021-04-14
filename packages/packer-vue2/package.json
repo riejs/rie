@@ -1,6 +1,6 @@
 {
   "name": "@riejs/packer-vue2",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "The vue2.0 packer of rie.",
   "main": "lib/index.js",
   "scripts": {

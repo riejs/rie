@@ -72,14 +72,14 @@ export const build = async function build({ config: configPath = '', mode = 'pro
         packerOption: packerMap[packer][0].packerOption,
       }).build();
     } catch (exception) {
-      if (exception.message.search('Cannot find module') >= 0) {
+      if (exception.message?.search('Cannot find module') >= 0) {
         /* eslint-disable-next-line no-param-reassign */
         exception.message = `${exception.message}. Try: npm i -D ${packer}`;
       }
       throw exception;
     }
   })).catch((error) => {
-    console.error('Rie build error:\n');
+    console.error('\n[rie build] error:\n');
     console.error(error);
     process.exit(-1);
   });
