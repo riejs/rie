@@ -103,9 +103,7 @@ export class Packer {
    * vue 2.0 文件打包
    */
   public async build() {
-    await this.compile([this.serverConfig, this.clientConfig]).catch((error) => {
-      console.log(error);
-    });
+    await this.compile([this.serverConfig, this.clientConfig]);
     await copy(this.patterns);
     if (this.option.runtimePublicPath) {
       // eslint-disable-next-line @typescript-eslint/no-require-imports

@@ -78,6 +78,10 @@ export const build = async function build({ config: configPath = '', mode = 'pro
       }
       throw exception;
     }
-  }));
+  })).catch((error) => {
+    console.error('Rie build error:\n');
+    console.error(error);
+    process.exit(-1);
+  });
   console.log('rie build finished.');
 };
