@@ -1,6 +1,6 @@
 {
 	"name": "@riejs/cli",
-	"version": "0.1.5",
+	"version": "0.1.7",
 	"description": "The cli of rie.",
 	"main": "lib/rie.js",
 	"scripts": {
