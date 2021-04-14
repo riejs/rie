@@ -1,6 +1,6 @@
 {
   "name": "@riejs/renderer-vue3",
-  "version": "0.0.0",
+  "private": true,
   "description": "The vue3.0 renderer of rie.",
   "main": "lib/server.js",
   "browser": "lib/client.js",

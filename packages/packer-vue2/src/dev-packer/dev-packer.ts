@@ -58,7 +58,6 @@ interface DevPackerOption {
 export class DevPacker extends EventEmitter {
   public serverBundle = resolve(__dirname, '../single-vue/server.json');
   private devServer: Koa;
-  private devPort = 0;
   private route = '';
 
   private proxyServer;
@@ -67,6 +66,7 @@ export class DevPacker extends EventEmitter {
   private serverConfig: WebpackOptions = clone(base);
   private readyStatus = { client: false, server: false };
   private dist = resolve(__dirname, '../../tmp');
+  private isCompiling = false;
 
   private get progress(): string {
     return `${this.route}/progress`;
@@ -131,18 +131,37 @@ export class DevPacker extends EventEmitter {
   public async getBuildingRenderer() {
     await this.initDevServer();
     return {
-      renderToString: (ctx, callback) => callback(null, buildingHtml.replace('{progressRoute}', this.progress)),
+      renderToString: (ctx, callback) => {
+        if (!this.isCompiling) {
+          this.startCompile();
+        }
+        callback(null, buildingHtml.replace('{progressRoute}', this.progress));
+      },
     };
   }
+
   public proxy(context): void {
     this.proxyServer.web(context.req, context.res);
   }
 
-  private async initDevServer() {
-    if (this.devServer) {
-      return;
-    }
-    await this.runDevServer();
+  private async initDevServer(): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      const port = await getUsablePort(MIN_PORT, MAX_PORT);
+      if (port < 0) {
+        reject(new Error('@riejs/packer-vue2 cannot create dev server, please retry.'));
+        return;
+      }
+      const app = new Koa();
+      app.listen(port, () => {
+        this.devServer = app;
+        this.proxyServer = createProxyServer({ target: `http://127.0.0.1:${port}` });
+        resolve();
+      });
+    });
+  }
+
+  private startCompile() {
+    this.isCompiling = true;
     this.initServerCompiler(this.serverConfig);
     this.initClientCompiler(this.clientConfig);
     this.devServer.use(async (ctx, next) => {
@@ -161,23 +180,6 @@ export class DevPacker extends EventEmitter {
       }
     });
     this.devServer.use(serve(resolve(this.dist, './client')));
-    this.proxyServer = createProxyServer({ target: `http://127.0.0.1:${this.devPort}` });
-  }
-
-  private async runDevServer(): Promise<void> {
-    return new Promise(async (resolve, reject) => {
-      const port = await getUsablePort(MIN_PORT, MAX_PORT);
-      if (port < 0) {
-        reject(new Error('@riejs/packer-vue2 cannot create dev server, please retry.'));
-        return;
-      }
-      const app = new Koa();
-      app.listen(port, () => {
-        this.devServer = app;
-        this.devPort = port;
-        resolve();
-      });
-    });
   }
 
   private initClientCompiler(config: any) {

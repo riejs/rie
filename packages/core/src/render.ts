@@ -52,8 +52,5 @@ export const initRenderer = function initRenderer(page: Page, { dev, dist }) {
 };
 
 export async function render(ctx: BaseContext, { page, dev, dist }: RenderOption): Promise<string> {
-  if (rendererManager[page.route] === undefined) {
-    await initRenderer(page, { dev, dist });
-  }
   return await rendererManager[page.route].renderer.render(ctx);
 }

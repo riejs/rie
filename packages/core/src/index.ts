@@ -53,9 +53,7 @@ export function rie({ collections, dev = false, onError = null, dist }: RieOptio
     throw new Error('pageDirs must be a nonempty array');
   }
   const targetPages = scanPages(collections);
-  if (!dev) {
-    targetPages.forEach(page => initRenderer(page, { dev, dist }));
-  }
+  targetPages.forEach(page => initRenderer(page, { dev, dist }));
 
   /* eslint-disable no-param-reassign */
   return async (ctx, next) => setContext(convertKoaCtx(ctx), async () => {

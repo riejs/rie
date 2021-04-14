@@ -7,9 +7,11 @@ class Renderer implements RendererInterface {
   public option: RendererOption;
 
   private innerRenderer;
+  private waiting: Promise<void>;
 
   public constructor(option) {
     this.option = option;
+    this.initInnerRenderer();
   }
 
   public async render(ctx) {
@@ -17,27 +19,31 @@ class Renderer implements RendererInterface {
     return innerRenderer.render(ctx);
   }
 
-  private async getInnerRenderer() {
-    if (this.innerRenderer) {
-      return this.innerRenderer;
-    }
-    if (this.option.dev) {
-      const { getDevRenderer } = await import(Renderer.packer).catch((error: Error) => {
+  private initInnerRenderer() {
+    this.waiting = import(Renderer.packer)
+      .catch((error: Error) => {
         if (error.message.search('Cannot find module') >= 0) {
           /* eslint-disable-next-line no-param-reassign */
           error.message = `${error.message}. Try: npm i -D ${Renderer.packer}`;
         }
         throw error;
-      });
-      this.innerRenderer = await getDevRenderer({
+      })
+      .then(({ getDevRenderer }) => getDevRenderer({
         rendererType: Renderer.type,
         route: this.option.route,
         dir: this.option.dir,
         template: this.option.template,
         packerOption: this.option.packerOption,
-      });
+      }))
+      .then(innerRenderer => this.innerRenderer = innerRenderer);
+  }
+
+  private async getInnerRenderer() {
+    if (this.innerRenderer) {
       return this.innerRenderer;
     }
+    await this.waiting;
+    return this.innerRenderer;
   }
 }
 
