@@ -31,12 +31,11 @@ class Renderer implements RendererInterface {
   private innerRenderer: BundleRenderer;
   private devPacker;
   private app;
+  private waiting: Promise<void>;
 
   public constructor(option: RendererOption) {
     this.option = option;
-    if (!this.option.dev) {
-      this.createInnerRenderer(this.option.dist);
-    }
+    this.initInnerRenderer();
   }
 
   public async render(context: BaseContext): Promise<string> {
@@ -60,30 +59,41 @@ class Renderer implements RendererInterface {
     });
   }
 
+  private initInnerRenderer() {
+    if (!this.option.dev) {
+      this.createInnerRenderer(this.option.dist);
+      this.waiting = Promise.resolve();
+    } else {
+      this.waiting = import(Renderer.packer)
+        .catch((error: Error) => {
+          if (error.message.search('Cannot find module') >= 0) {
+            /* eslint-disable-next-line no-param-reassign */
+            error.message = `${error.message}. Try: npm i -D ${Renderer.packer}`;
+          }
+          throw error;
+        })
+        .then(({ DevPacker }) => {
+          this.devPacker = new DevPacker({
+            rendererType: Renderer.type,
+            route: this.option.route,
+            dir: this.option.dir,
+            template: this.option.template,
+            packerOption: this.option.packerOption,
+          });
+          this.devPacker.on('ready', ({ dist }) => this.createInnerRenderer(dist));
+          return this.devPacker.getBuildingRenderer();
+        })
+        .then((innerRenderer) => {
+          this.innerRenderer = innerRenderer;
+        });
+    }
+  }
+
   private async getInnerRenderer() {
     if (this.innerRenderer) {
       return this.innerRenderer;
     }
-    if (this.option.dev) {
-      const { DevPacker } = await import(Renderer.packer).catch((error: Error) => {
-        if (error.message.search('Cannot find module') >= 0) {
-          /* eslint-disable-next-line no-param-reassign */
-          error.message = `${error.message}. Try: npm i -D ${Renderer.packer}`;
-        }
-        throw error;
-      });
-      this.devPacker = new DevPacker({
-        rendererType: Renderer.type,
-        route: this.option.route,
-        dir: this.option.dir,
-        template: this.option.template,
-        packerOption: this.option.packerOption,
-      });
-      this.devPacker.on('ready', ({ dist }) => this.createInnerRenderer(dist));
-      this.innerRenderer = await this.devPacker.getBuildingRenderer();
-      return this.innerRenderer;
-    }
-    this.createInnerRenderer(this.option.dist);
+    await this.waiting;
     return this.innerRenderer;
   }
 
