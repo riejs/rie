@@ -5,14 +5,18 @@ import { RieContext } from '../common/context';
 
 // Node 12.17.0 版本，原生支持 AsyncLocalStorage
 const AsyncLocalStorage = asyncHooks.AsyncLocalStorage || SelfAsyncLocalStorage;
-const asyncLocalStorage = new AsyncLocalStorage<RieContext>();
+let asyncLocalStorage: asyncHooks.AsyncLocalStorage<RieContext> | SelfAsyncLocalStorage<RieContext>;
+
+export function initContextStorage() {
+  asyncLocalStorage = new AsyncLocalStorage<RieContext>();
+}
 
 export function setContext(ctx: RieContext, callback) {
-  return asyncLocalStorage.run(ctx, callback);
+  return asyncLocalStorage?.run(ctx, callback);
 };
 
 export function getContext(): RieContext {
-  return asyncLocalStorage.getStore();
+  return asyncLocalStorage?.getStore() ?? null;
 };
 
 export function convertKoaCtx(ctx: Context): RieContext {
