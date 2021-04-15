@@ -2,7 +2,7 @@ import { Middleware } from 'koa';
 import { render, initRenderer } from './render';
 import { scanPages, matchPage, PageCollection } from './route';
 import { handleService } from './service-manager';
-import { getContext, setContext, convertKoaCtx } from './isomorphism/server/context';
+import { getContext, setContext, initContextStorage, convertKoaCtx } from './isomorphism/server/context';
 
 export { Renderer, RendererOption, RendererInterface } from './renderer';
 export { clientFetch } from './isomorphism/server/clientFetch';
@@ -28,6 +28,15 @@ export interface RieOption {
   dist?: string;
 
   /**
+   * @member {Boolean} canGetContext
+   *
+   * can get context in server side rendering
+   * Default: false, getContext() will return null
+   * @experimental
+   */
+  canGetContext?: boolean;
+
+  /**
    * @member {string} publicPath 构建产物的 publicPath，默认: /dist/
    */
   publicPath?: string;
@@ -48,7 +57,7 @@ export interface RieOption {
  * @param {RieOption} RieOption - rie 配置
  * @returns {Middleware} Koa SSR 中间件
  */
-export function rie({ collections, dev = false, onError = null, dist }: RieOption): Middleware {
+export function rie({ collections, dev = false, onError = null, dist, canGetContext = false }: RieOption): Middleware {
   if (!Array.isArray(collections) || collections.length === 0) {
     throw new Error('pageDirs must be a nonempty array');
   }
@@ -56,7 +65,7 @@ export function rie({ collections, dev = false, onError = null, dist }: RieOptio
   targetPages.forEach(page => initRenderer(page, { dev, dist }));
 
   /* eslint-disable no-param-reassign */
-  return async (ctx, next) => setContext(convertKoaCtx(ctx), async () => {
+  const middleware: Middleware = async (ctx, next) => {
     await handleService(ctx);
 
     if (ctx.body && ctx.status !== 404) {
@@ -87,5 +96,11 @@ export function rie({ collections, dev = false, onError = null, dist }: RieOptio
       }
     }
     return next();
-  });
+  };
+
+  if (canGetContext) {
+    initContextStorage();
+    return async (ctx, next) => setContext(convertKoaCtx(ctx), middleware.bind(null, ctx, next));
+  }
+  return middleware;
 }
