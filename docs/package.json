@@ -1,0 +1,19 @@
+{
+  "name": "@riejs/docs",
+  "private": true,
+  "description": "The docs for rie. Based vuepress",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vuepress dev .",
+    "docs:build": "vuepress build ."
+  },
+  "keywords": [
+    "rie",
+    "docs"
+  ],
+  "author": "incca",
+  "license": "ISC",
+  "devDependencies": {
+    "vuepress": "^1.8.2"
+  }
+}

@@ -18,5 +18,6 @@
 build
 dist
 coverage
+cache
 packages/*/lib
 packages/*/tmp
