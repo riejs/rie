@@ -1,6 +1,6 @@
 {
 	"name": "@riejs/rie",
-	"version": "0.1.7",
+	"version": "1.0.0",
 	"description": "The core of rie.",
 	"main": "lib/index.js",
 	"browser": "lib/client.js",
@@ -23,9 +23,10 @@
 	"peerDependencies": {
 		"axios": "^0.21.1"
 	},
+	"git repository": "https://github.com/riejs/rie/tree/main/packages/core",
 	"repository": {
 		"type": "git",
-		"url": "ssh://git@github.com:riejs/rie.git",
+		"url": "git+https://github.com/riejs/rie.git",
 		"directory": "packages/core"
 	}
 }

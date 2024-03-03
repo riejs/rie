@@ -1,6 +1,6 @@
 {
 	"name": "@riejs/cli",
-	"version": "0.1.7",
+	"version": "1.0.0",
 	"description": "The cli of rie.",
 	"main": "lib/rie.js",
 	"scripts": {
@@ -22,9 +22,10 @@
 		"@riejs/rie": "workspace:packages/core",
 		"commander": "^6.1.0"
 	},
+	"git repository": "https://github.com/riejs/rie/tree/main/packages/cli",
 	"repository": {
 		"type": "git",
-		"url": "ssh://git@github.com:riejs/rie.git",
+		"url": "git+https://github.com/riejs/rie.git",
 		"directory": "packages/cli"
 	}
 }

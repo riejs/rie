@@ -1,6 +1,6 @@
 {
 	"name": "@riejs/packer-utils",
-	"version": "0.0.5",
+	"version": "1.0.0",
 	"description": "The utils for rie packer.",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
@@ -26,9 +26,10 @@
 		"@babel/types": "^7.13.0",
 		"loader-utils": "^2.0.0"
 	},
+	"git repository": "https://github.com/riejs/rie/tree/main/packages/packer-utils",
 	"repository": {
 		"type": "git",
-		"url": "ssh://git@github.com:riejs/rie.git",
+		"url": "git+https://github.com/riejs/rie.git",
 		"directory": "packages/packer-utils"
 	}
 }
